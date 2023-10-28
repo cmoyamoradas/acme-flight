@@ -19,6 +19,7 @@ import picocli.CommandLine.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * List of passengers who have been on more than 3 flights together
