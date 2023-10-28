@@ -187,4 +187,16 @@ public class Utils {
         return input.stream().mapToInt(x -> x.size()).max().getAsInt();
     }
 
+    /**
+     * @param flights List of flights to order
+     */
+    public static void orderFlightsByDate(List<Flight> flights){
+        Collections.sort(flights, new Comparator<Flight>() {
+            @Override
+            public int compare(Flight f1, Flight f2) {
+                return f1.getDate().compareTo(f2.getDate());
+            }
+        });
+    }
+
 }

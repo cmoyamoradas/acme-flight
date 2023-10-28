@@ -54,9 +54,16 @@ public class GetLongestRun implements Runnable{
         Dataset<Flight> flightsDS = SparkUtils.readFlightDataFromCSV(inputPath);
         JavaRDD<Flight> flightsRdd = flightsDS.javaRDD();
         List<Flight> flightList = flightsRdd.collect();
+
+        // Ensure that the flights are ordered by date, ascending
+        // To avoid java.land.UnsupportedOperationException we need to create a new List<Flight> from the one returned by the collect()
+        // JavaRDD method
+        flightList = new ArrayList<Flight>(flightList);
+        Utils.orderFlightsByDate(flightList);
+
         //Extract the longest route per passenger
         Map<Integer,Integer> longestRoutePerPassenger = Utils.getLongestRoutePerPassengerWithCondition(flightList, "uk");
-        //Order the map by value
+        //Order the map by value, descending
         Map<Integer,Integer> orderedLongestRoutePerPassenger = Utils.orderEntriesByValue(longestRoutePerPassenger);
 
         //Build the output table

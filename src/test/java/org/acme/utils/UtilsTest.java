@@ -106,4 +106,5 @@ public class UtilsTest {
         assertNotNull(actual);
         assertTrue(actual.equals(expected));
     }
+
 }
