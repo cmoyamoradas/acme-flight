@@ -55,8 +55,7 @@ public class GetPassengersFlyingTogether implements Runnable{
      */
     @Override
     public void run() {
-        log.info("Processing... (it can take 1-2 minutes)");
-
+        log.info("Processing...");
         Dataset<Flight> flightsDS = SparkUtils.readFlightDataFromCSV(inputPath);
         JavaRDD<Flight> flightsRdd = flightsDS.javaRDD();
         List<Flight> flightList = flightsRdd.collect();
@@ -117,6 +116,7 @@ public class GetPassengersFlyingTogether implements Runnable{
     public void getPassengersFlyingTogetherAlg(Map<Integer, List<Integer>> flightPerPassengerId, List<Row> rows4, List<Integer> done, int limit){
         // NOTE: This implementation is not that performant. A possible alternative using flatMap could bring a more
         // efficient way to process this data. To investigate
+        log.info("...it can take 1-2 minutes");
         flightPerPassengerId.forEach((passenger1, passenger1Flights) -> {
             flightPerPassengerId.forEach((passenger2, passenger2Flights) -> {
                 if (passenger1 != passenger2) {

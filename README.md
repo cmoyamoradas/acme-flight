@@ -8,7 +8,7 @@ Acme Flights is an application that processes some flight data to provide the fo
 
 ## Implementation
 
-Acme Flights is implemented in Java (JDK 11), using Maven as package manager. Implementation relies on the following libraries:
+Acme Flights is implemented in Java (JDK 1.8), using Maven as package manager. Implementation relies on the following libraries:
 - Spark 2_12 (v2.4.8)
 - Picocli (v4.7.5)
 - Spring Boot (v2.7.11)
@@ -24,9 +24,7 @@ To build the application, run the following command from the root folder of the 
 
 Look at the `<plugins>` section in the `pom.xml` file to see how the Spring Boot Maven plugin has been configured, first, to specify the main class and, second, to add `spring-boot:repackage` as part of the `package` phase of the Maven lifecyle.
 
-The reason to do that is because we need to include a `manifest` file in the jar.
-
-The manifest file will contain, apart from the reference to the main class, some `add-opens` arguments that we need to pass to the JVM. If you want to run the application with the Spring Boot Maven plugin (spring-boot:run), you'll have to add the same --add-opens as JVM arguments
+In case you're working with JDK 11+, the manifest file needs to contain, apart from the reference to the main class, some `add-opens` arguments that we need to pass to the JVM. If you want to run the application with the Spring Boot Maven plugin (spring-boot:run), you'll have to add the same --add-opens as JVM arguments
 
 ---
 
@@ -66,8 +64,8 @@ Total number of flights per year month
   -o, --output-file=<outputPath>
                Write the output in a file [OPTIONAL]
 ```
-## Warnings
-When working with Spark and JDK 11 you may get the following WARN when running the application:
+## Warnings with JDK 11+
+When working with Spark and JDK 11+ you may get the following WARN when running the application:
 ```bash
 WARNING: An illegal reflective access operation has occurred
 WARNING: Illegal reflective access by org.apache.spark.unsafe.Platform (jar:file:/Users/carlosmm/Workspace/acme-flight/target/acme-flight-1.0.jar!/BOOT-INF/lib/spark-unsafe_2.12-2.4.8.jar!/) to method java.nio.Bits.unaligned()
